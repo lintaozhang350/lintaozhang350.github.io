@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <rect width="800" height="520" fill="#dce7de"/>
+  <rect x="112" y="57" width="244" height="400" rx="30" fill="#172a3c"/>
+  <rect x="130" y="97" width="208" height="315" rx="4" fill="#314458"/>
+  <rect x="190" y="70" width="88" height="9" rx="5" fill="#fffefa" opacity=".4"/>
+  <circle cx="234" cy="438" r="13" fill="#fffefa" opacity=".7"/>
+  <rect x="154" y="128" width="144" height="12" rx="6" fill="#9db4a0"/>
+  <rect x="154" y="158" width="130" height="9" rx="4" fill="#fffefa" opacity=".65"/>
+  <rect x="154" y="183" width="165" height="9" rx="4" fill="#c86c4d"/>
+  <rect x="154" y="208" width="111" height="9" rx="4" fill="#fffefa" opacity=".65"/>
+  <rect x="154" y="253" width="138" height="9" rx="4" fill="#d7a37f"/>
+  <rect x="154" y="278" width="170" height="9" rx="4" fill="#fffefa" opacity=".65"/>
+  <rect x="154" y="303" width="92" height="9" rx="4" fill="#c86c4d"/>
+  <rect x="431" y="112" width="276" height="273" rx="18" fill="#fffefa"/>
+  <text x="464" y="162" fill="#c86c4d" font-family="monospace" font-size="16">LOGCAT / TRACE</text>
+  <rect x="464" y="190" width="193" height="12" rx="6" fill="#dfe2df"/>
+  <rect x="464" y="223" width="165" height="12" rx="6" fill="#dfe2df"/>
+  <rect x="464" y="256" width="211" height="12" rx="6" fill="#c86c4d" opacity=".7"/>
+  <rect x="464" y="289" width="181" height="12" rx="6" fill="#dfe2df"/>
+  <rect x="464" y="322" width="115" height="12" rx="6" fill="#172a3c" opacity=".7"/>
+  <circle cx="671" cy="64" r="32" fill="#c86c4d"/>
+  <path d="m657 64 10 10 20-23" fill="none" stroke="#fffefa" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

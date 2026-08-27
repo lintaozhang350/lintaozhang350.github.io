@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Pulitzer Prize Data Analysis by Lintao Zhang." />
+    <title>Pulitzer Prize Data Analysis | Lintao Zhang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root { --canvas: #f7f6f2; --paper: #fffefa; --ink: #172a3c; --muted: #73808b; --line: #dfe2df; --accent: #c86c4d; --accent-light: #f1ddd3; --display: "Manrope", Arial, sans-serif; --body: "DM Sans", Arial, sans-serif; --mono: "DM Mono", monospace; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--canvas); color: var(--ink); font-family: var(--body); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .wrap { width: min(1040px, calc(100% - 42px)); margin: 0 auto; }
+      .topbar { display: flex; justify-content: space-between; align-items: center; min-height: 74px; border-bottom: 1px solid var(--line); font-size: 13px; }
+      .back { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
+      .back span { color: var(--accent); font-size: 18px; }
+      .code-link { color: var(--accent); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+      .hero { padding: 85px 0 66px; }
+      .kicker { margin: 0 0 18px; color: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+      h1 { max-width: 760px; margin: 0 0 18px; font-family: var(--display); font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -.07em; line-height: .98; }
+      h1 em { color: var(--accent); font-style: normal; }
+      .intro { max-width: 670px; margin: 0; color: #314458; font-size: 17px; line-height: 1.7; }
+      .method { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+      .method span { padding: 7px 11px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); color: #314458; font-family: var(--mono); font-size: 10px; }
+      .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding-bottom: 95px; }
+      figure { margin: 0; padding: 17px; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); box-shadow: 0 14px 40px rgba(28, 48, 64, .06); }
+      figure:first-child { grid-column: 1 / -1; }
+      figure img { display: block; width: 100%; height: auto; border-radius: 9px; }
+      figcaption { padding: 16px 3px 2px; color: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: .03em; text-transform: uppercase; }
+      .footer { padding: 24px 0 50px; border-top: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 10px; }
+      @media (max-width: 650px) { .wrap { width: min(100% - 34px, 520px); } .topbar { min-height: 66px; } .hero { padding: 62px 0 48px; } .gallery { grid-template-columns: 1fr; padding-bottom: 64px; } figure:first-child { grid-column: auto; } .code-link { font-size: 9px; } }
+    </style>
+  </head>
+  <body>
+    <header class="wrap topbar">
+      <a class="back" href="../../index.html#projects"><span aria-hidden="true">←</span> Back to portfolio</a>
+      <a class="code-link" href="../code/pulitzer-analysis.Rmd" target="_blank" rel="noreferrer">View code ↗</a>
+    </header>
+    <main>
+      <section class="wrap hero" aria-labelledby="demo-title">
+        <p class="kicker">Project demo / Exploratory analysis</p>
+        <h1 id="demo-title">Pulitzer Prize<br /><em>Data Analysis.</em></h1>
+        <p class="intro">An R-based exploration of newspaper circulation, Pulitzer Prize finalists and winners, and changes in daily circulation using summary statistics, histograms, and a fitted linear model.</p>
+        <div class="method" aria-label="Analysis workflow">
+          <span>Clean data</span><span>Summary statistics</span><span>Histograms</span><span>Scatterplot</span><span>Linear model</span>
+        </div>
+      </section>
+      <section class="wrap gallery" aria-label="Analysis visualizations">
+        <figure>
+          <img src="../images/projects/pulitzer/finalists-vs-circulation.png" alt="Scatterplot comparing Pulitzer finalists and winners with change in newspaper circulation from 2004 to 2014" />
+          <figcaption>01 / Finalists and winners vs. change in circulation</figcaption>
+        </figure>
+        <figure>
+          <img src="../images/projects/pulitzer/pulitzer-group-1.png" alt="Histogram showing change in daily circulation for all newspapers" loading="lazy" />
+          <figcaption>02 / Group 1: All newspapers</figcaption>
+        </figure>
+        <figure>
+          <img src="../images/projects/pulitzer/pulitzer-group-2.png" alt="Histogram showing change in daily circulation for newspapers with more than three Pulitzer Prizes" loading="lazy" />
+          <figcaption>03 / Group 2: Newspapers with more than three Pulitzer Prizes</figcaption>
+        </figure>
+      </section>
+    </main>
+    <footer class="wrap footer">Lintao (Andy) Zhang · R · RStudio · ggplot2 · dplyr · tidyr · EDA</footer>
+  </body>
+</html>

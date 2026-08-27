@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <rect width="800" height="520" fill="#f1ddd3"/>
+  <path d="M0 446c94-55 152-33 236-62 104-37 119-146 222-158 107-13 148 91 342-13v307H0Z" fill="#c86c4d" opacity=".83"/>
+  <path d="M0 462c122-58 185-20 271-67 99-54 133-130 216-117 111 17 142 85 313 11" fill="none" stroke="#172a3c" stroke-width="8" opacity=".75"/>
+  <circle cx="136" cy="170" r="76" fill="#172a3c"/>
+  <path d="M99 154c30-11 61-6 82 7M104 176c26-8 51-3 69 8M112 197c21-5 38-1 53 6" fill="none" stroke="#9db4a0" stroke-width="8" stroke-linecap="round"/>
+  <rect x="295" y="107" width="310" height="25" rx="12" fill="#fffefa" opacity=".78"/>
+  <rect x="295" y="148" width="222" height="16" rx="8" fill="#fffefa" opacity=".6"/>
+  <text x="295" y="236" fill="#172a3c" font-family="monospace" font-size="16" letter-spacing="3">POPULARITY / MODEL</text>
+  <circle cx="611" cy="329" r="91" fill="#fffefa" opacity=".84"/>
+  <path d="M574 329h74M611 292v74" stroke="#c86c4d" stroke-width="6"/>
+</svg>

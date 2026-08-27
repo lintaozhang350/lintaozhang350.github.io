@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Android Logcat Debugging and Bug Reproduction case study by Lintao Zhang." />
+    <title>Android Logcat Debugging &amp; Bug Reproduction | Lintao Zhang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root { --canvas: #f7f6f2; --paper: #fffefa; --ink: #172a3c; --ink-soft: #314458; --muted: #73808b; --line: #dfe2df; --line-strong: #cfd5d1; --accent: #c86c4d; --accent-light: #f1ddd3; --sage: #dce7de; --display: "Manrope", Arial, sans-serif; --body: "DM Sans", Arial, sans-serif; --mono: "DM Mono", monospace; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--canvas); color: var(--ink); font-family: var(--body); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .wrap { width: min(1080px, calc(100% - 42px)); margin: 0 auto; }
+      .topbar { display: flex; justify-content: space-between; align-items: center; min-height: 74px; border-bottom: 1px solid var(--line); font-size: 13px; }
+      .back { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
+      .back span, .accent { color: var(--accent); }
+      .top-links { display: flex; gap: 18px; color: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; }
+      .hero { padding: 82px 0 56px; }
+      .kicker, .eyebrow, .metric-label, .section-label { color: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+      .kicker { margin: 0 0 17px; }
+      h1, h2, h3 { font-family: var(--display); letter-spacing: -.06em; line-height: 1.02; }
+      h1 { max-width: 850px; margin: 0 0 20px; font-size: clamp(3rem, 7vw, 6rem); }
+      h1 em, h2 em { color: var(--accent); font-style: normal; }
+      .hero-intro { max-width: 700px; margin: 0; color: var(--ink-soft); font-size: 17px; line-height: 1.7; }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 29px; }
+      .button { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 9px 14px; border: 1px solid var(--line-strong); border-radius: 22px; background: var(--paper); font-size: 11px; font-weight: 700; transition: transform 180ms ease, background-color 180ms ease, color 180ms ease; }
+      .button:hover, .button:focus-visible { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+      .button span { color: var(--accent); font-size: 16px; }
+      .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 0 0 65px; }
+      .metric { padding: 22px 20px; border: 1px solid var(--line); border-radius: 15px; background: var(--paper); }
+      .metric-value { display: block; margin: 7px 0 2px; font-family: var(--display); font-size: 32px; font-weight: 800; letter-spacing: -.07em; }
+      .metric-note { color: var(--muted); font-size: 11px; line-height: 1.35; }
+      .section { padding: 76px 0; border-top: 1px solid var(--line); }
+      .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 35px; margin-bottom: 30px; }
+      h2 { margin: 0; font-size: clamp(2.3rem, 5vw, 4rem); }
+      .section-heading p { max-width: 315px; margin: 0; color: var(--muted); font-size: 13px; }
+      .callout { padding: 26px 28px; border: 1px solid #e7c9be; border-radius: 17px; background: var(--accent-light); color: var(--ink-soft); }
+      .callout strong { color: var(--ink); }
+      .cases { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); }
+      table { width: 100%; min-width: 850px; border-collapse: collapse; text-align: left; }
+      th, td { padding: 16px 17px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 12px; }
+      th { color: var(--accent); font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+      tr:last-child td { border-bottom: 0; }
+      td:first-child { width: 58px; color: var(--muted); font-family: var(--mono); }
+      td strong { display: block; margin-bottom: 3px; color: var(--ink); }
+      td small { color: var(--muted); font-family: var(--mono); font-size: 10px; }
+      .value-high { color: #9e4f37; font-weight: 700; }
+      .method-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+      .method-card { padding: 22px; border: 1px solid var(--line); border-radius: 15px; background: var(--paper); }
+      .method-card h3 { margin: 0 0 8px; font-size: 21px; }
+      .method-card p { margin: 0; color: var(--ink-soft); font-size: 13px; line-height: 1.6; }
+      .limitations { padding: 28px; border-radius: 17px; background: var(--sage); color: var(--ink-soft); }
+      .limitations p { margin: 0; font-size: 13px; }
+      .footer { padding: 25px 0 50px; border-top: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 10px; }
+      @media (max-width: 760px) { .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } .section-heading { display: block; } .section-heading p { margin-top: 15px; } .method-grid { grid-template-columns: 1fr; } }
+      @media (max-width: 520px) { .wrap { width: min(100% - 34px, 520px); } .topbar { min-height: 66px; } .top-links { gap: 8px; font-size: 8px; } .hero { padding-top: 62px; } .metrics { gap: 8px; } .metric { padding: 17px 14px; } .metric-value { font-size: 26px; } }
+    </style>
+  </head>
+  <body>
+    <header class="wrap topbar">
+      <a class="back" href="../../index.html#projects"><span aria-hidden="true">←</span> Back to portfolio</a>
+      <nav class="top-links" aria-label="Case study materials">
+        <a href="../reports/AndroT_101_150_Final_Report.html" target="_blank" rel="noreferrer">Full report ↗</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="wrap hero" aria-labelledby="case-title">
+        <p class="kicker">Details / Android debugging study</p>
+        <h1 id="case-title">Android Logcat<br /><em>Debugging &amp; Bug Reproduction.</em></h1>
+        <p class="hero-intro">A source-based review of direct <code>Log.d</code> usage across 50 Android repositories, focused on the program states and control-flow conditions that make a log useful for reproducing behavior.</p>
+        <div class="actions">
+          <a class="button" href="../reports/AndroT_101_150_Final_Report.html" target="_blank" rel="noreferrer">Read full report <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="wrap metrics" aria-label="Project results">
+        <div class="metric"><span class="metric-label">Repositories</span><span class="metric-value">50</span><span class="metric-note">Assigned AndroT IDs 101–150</span></div>
+        <div class="metric"><span class="metric-label">Raw matches</span><span class="metric-value">376</span><span class="metric-note">After source-scope exclusions</span></div>
+        <div class="metric"><span class="metric-label">Active contexts</span><span class="metric-value">316</span><span class="metric-note">Comments and literals masked</span></div>
+        <div class="metric"><span class="metric-label">Projects with active logs</span><span class="metric-value">22</span><span class="metric-note">28 had no active direct Log.d</span></div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-heading"><div><p class="eyebrow">01 / Finding</p><h2>Context matters<br /><em>more than the log line.</em></h2></div><p>The same logging call can be routine instrumentation or a useful reproduction signal depending on the state that surrounds it.</p></div>
+          <div class="callout"><strong>Main finding.</strong> The reproduction value of a <code>Log.d</code> call comes from its program state and control-flow path, not from message text alone. Logs tied to specific conditions—failed responses, missing files, disabled providers, null values, or exception paths—provide the clearest reproduction value.</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-heading"><div><p class="eyebrow">02 / Selected cases</p><h2>Signals worth<br /><em>reproducing.</em></h2></div><p>Representative cases selected from the source-reviewed report.</p></div>
+          <div class="cases">
+            <table>
+              <thead><tr><th>ID</th><th>Context</th><th>Execution condition</th><th>Why it matters</th></tr></thead>
+              <tbody>
+                <tr><td>106</td><td><strong>Billing failure</strong><small>BillingRepository.kt:153</small></td><td>Billing result is not OK and is not the expected USER_CANCELED outcome.</td><td><span class="value-high">High reproduction value.</span> A failed or unavailable billing response can recreate the state.</td></tr>
+                <tr><td>107</td><td><strong>Missing image file</strong><small>SaveOeuvre.kt:42</small></td><td>The temporary image file does not exist.</td><td><span class="value-high">High reproduction value.</span> A setup with a missing temporary file recreates the logged state.</td></tr>
+                <tr><td>108</td><td><strong>HTML processing exception</strong><small>HtmlTagHandler.java:77</small></td><td>The call runs inside a broad exception handler during tag processing.</td><td><span class="value-high">High reproduction value.</span> Malformed or unexpected HTML can drive the path.</td></tr>
+                <tr><td>115</td><td><strong>Backup authentication</strong><small>BackupService.kt:53 / 84</small></td><td>Authentication returns false and the operation returns.</td><td>A rejected or unauthenticated caller provides a concrete failure state.</td></tr>
+                <tr><td>120</td><td><strong>Location providers disabled</strong><small>GPSTracker.java:53</small></td><td>Both GPS and network providers are disabled.</td><td>The compatibility APK reproduced this log twice on a Pixel_5 emulator after location services were disabled.</td></tr>
+                <tr><td>129</td><td><strong>Null event list</strong><small>DayBuilder.kt:59</small></td><td><code>eventList == null</code> is followed by an early return.</td><td>The logged state can be recreated by reaching <code>build()</code> with a null list.</td></tr>
+                <tr><td>136</td><td><strong>PDF retry</strong><small>PdfDownloader.kt:92</small></td><td>The cached PDF cannot be used and <code>retryDownload()</code> starts.</td><td>Removing or corrupting the cache is a plausible reproduction setup.</td></tr>
+                <tr><td>149</td><td><strong>Unexpected crop result</strong><small>DialogAddBoard.java:129</small></td><td>The crop result is neither success nor user cancellation.</td><td>An invalid or failed crop result can recreate this unexpected-result state.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-heading"><div><p class="eyebrow">03 / Methodology</p><h2>Repeatable<br /><em>and scoped.</em></h2></div><p>The analysis deliberately avoids presenting static source evidence as a confirmed runtime bug.</p></div>
+          <div class="method-grid">
+            <article class="method-card"><h3>Scan</h3><p><code>analyze_logd.py</code> walked the 50 repository directories and recorded raw textual matches before filtering comments and literals.</p></article>
+            <article class="method-card"><h3>Filter</h3><p>Test trees, build output, Gradle caches, generated code, and obvious repository metadata were excluded from the active production scope.</p></article>
+            <article class="method-card"><h3>Review</h3><p>Representative surrounding methods, callbacks, branches, catches, null checks, response codes, permissions, and return paths were read manually.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow">04 / Limitations</p>
+          <div class="limitations"><p>This is static source analysis, not a complete runtime log study. It does not establish that a path is reachable under every build, that an external service will produce a particular response, or that a logged state caused a real reported bug. The analysis focuses on direct <code>Log.d</code> calls and does not cover other logging APIs.</p></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap footer">Lintao (Andy) Zhang · Python · Android · ADB · Emulator · Logcat</footer>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AndroT 101-150 direct Log.d static analysis report by Lintao Zhang." />
+    <title>AndroT 101-150: Direct Log.d Static Analysis | Lintao Zhang</title>
+    <style>
+      :root { --canvas: #f7f6f2; --paper: #fffefa; --ink: #172a3c; --ink-soft: #314458; --muted: #73808b; --line: #dfe2df; --accent: #c86c4d; --accent-light: #f1ddd3; --sage: #dce7de; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--canvas); color: var(--ink); font-family: Arial, sans-serif; line-height: 1.7; }
+      a { color: inherit; }
+      .wrap { width: min(900px, calc(100% - 42px)); margin: 0 auto; }
+      .topbar { display: flex; justify-content: space-between; align-items: center; min-height: 74px; border-bottom: 1px solid var(--line); font-size: 13px; }
+      .topbar a { color: var(--accent); text-decoration: none; font-weight: 700; }
+      .report { padding: 70px 0 100px; }
+      .kicker, .meta { color: var(--accent); font-family: Consolas, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+      h1, h2 { letter-spacing: -.04em; line-height: 1.1; }
+      h1 { margin: 0 0 12px; font-size: clamp(2.5rem, 6vw, 4.7rem); }
+      h2 { margin: 58px 0 18px; font-size: clamp(1.7rem, 4vw, 2.8rem); }
+      h2::before { margin-right: 9px; color: var(--accent); content: "//"; font-family: Consolas, monospace; font-size: .55em; letter-spacing: 0; }
+      h3 { margin: 30px 0 8px; font-size: 1.2rem; }
+      p { color: var(--ink-soft); }
+      code { padding: 2px 5px; border-radius: 4px; background: var(--accent-light); color: #9e4f37; font-family: Consolas, monospace; font-size: .9em; }
+      .lead { max-width: 720px; margin-bottom: 35px; color: var(--ink-soft); font-size: 17px; }
+      .callout { padding: 21px 24px; border: 1px solid #e7c9be; border-radius: 14px; background: var(--accent-light); }
+      .callout p { margin: 0; }
+      .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
+      table { width: 100%; border-collapse: collapse; text-align: left; }
+      th, td { padding: 13px 15px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 13px; }
+      th { color: var(--accent); font-family: Consolas, monospace; font-size: 10px; letter-spacing: .05em; text-transform: uppercase; }
+      tr:last-child td { border-bottom: 0; }
+      ol { padding-left: 25px; }
+      li { margin: 15px 0; padding-left: 5px; color: var(--ink-soft); }
+      li strong { color: var(--ink); }
+      .note { padding: 23px 25px; border-radius: 14px; background: var(--sage); }
+      .note p { margin: 0; }
+      .footer { padding-top: 28px; border-top: 1px solid var(--line); color: var(--muted); font-family: Consolas, monospace; font-size: 10px; }
+      @media (max-width: 600px) { .wrap { width: min(100% - 34px, 520px); } .topbar { min-height: 66px; } .topbar a:last-child { font-size: 10px; } .report { padding-top: 50px; } }
+    </style>
+  </head>
+  <body>
+    <header class="wrap topbar">
+      <a href="../demos/android-logcat-details.html">← Back to Details</a>
+    </header>
+    <main class="wrap report">
+      <p class="kicker">Final report / AndroT 101-150</p>
+      <h1>Direct <code>Log.d</code> static analysis</h1>
+      <p class="lead">This report reviews direct <code>Log.d</code> calls across 50 Android repositories and evaluates their usefulness for reproducing program states.</p>
+
+      <h2>Scope</h2>
+      <p>This review covers the 50 repositories assigned to AndroT IDs 101-150. It searches Java and Kotlin production-looking source for direct <code>Log.d</code> calls. Test trees (<code>src/test</code>, <code>src/androidTest</code>, and <code>src/sharedTest</code>), build output, Gradle caches, generated code, and obvious repository metadata are excluded.</p>
+      <p>The scope is deliberately narrow: <code>Log.e</code>, <code>Log.w</code>, <code>Log.i</code>, Timber, <code>System.out</code>, and other logging mechanisms are not counted. ID 120 was analyzed from the original repository snapshot; its temporary repository-order change was tested in an isolated copy and documented separately.</p>
+
+      <h2>Method</h2>
+      <p><code>analyze_logd.py</code> walks the 50 repository directories without changing them. It records a raw textual count before filtering comments and literals, then creates an active count after masking comments and string/character literals. This removes obvious commented-out calls while keeping line numbers and source paths.</p>
+      <p>For representative cases, the surrounding method, callback, branch, catch block, null check, response code, or return path was read manually. A logger/helper definition was not treated as evidence of a bug state by itself.</p>
+
+      <h2>Overall results</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Measure</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Assigned repositories</td><td>50</td></tr>
+            <tr><td>Raw textual <code>Log.d</code> matches after source-scope exclusions</td><td>376</td></tr>
+            <tr><td>Active production <code>Log.d</code> contexts</td><td>316</td></tr>
+            <tr><td>Projects with at least one active production <code>Log.d</code></td><td>22</td></tr>
+            <tr><td>Projects with no active production <code>Log.d</code></td><td>28</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The previous sanity values were 391 raw matches and 317 active-looking contexts. The raw difference is explained by 15 matches in excluded test trees, concentrated in IDs 106, 108, 115, 137, and 146. The active value is one lower because the prior context file included ID 105's <code>app/src/play/java/com/celzero/bravedns/iab/InAppBillingHandler.kt:145</code>, which is inside an unclosed block comment. The current values are the ones used in the final CSV because they follow the stated scope and were regenerated from source. ID 150 has 13 raw textual matches but zero active production calls; the 13 are commented-out calls.</p>
+
+      <h2>Strongest examples</h2>
+      <p>These examples have the clearest connection between the log and a reproducible program state. None is claimed to be a confirmed report of a known bug; the assessment is about reproduction value only.</p>
+      <ol>
+        <li><strong>ID 106, billing failure — <code>BillingRepository.kt:153</code>.</strong> <code>Error purchasing...</code> runs when the billing response is not <code>OK</code> and is not the expected <code>USER_CANCELED</code> result. A failed or unavailable billing response could recreate this state.</li>
+        <li><strong>ID 107, missing image file — <code>SaveOeuvre.kt:42</code>.</strong> <code>File does not exits</code> is inside <code>if (!imageFile.exists())</code>. A setup where the temporary image file does not exist gives a concrete reproduction state.</li>
+        <li><strong>ID 108, HTML processing exception — <code>HtmlTagHandler.java:77</code>.</strong> <code>Exception: ...</code> is inside <code>catch (Exception e)</code> while processing tag attributes. Malformed or unexpected HTML can drive that path, although the broad catch loses detail.</li>
+        <li><strong>ID 115, backup authentication — <code>BackupService.kt:53</code> and line 84.</strong> <code>Authentication failed...</code> runs when authentication returns <code>false</code> and the operation returns. An unauthenticated or rejected caller provides a concrete failure state.</li>
+        <li><strong>ID 120, location providers disabled — <code>GPSTracker.java:53</code>.</strong> <code>No provider enabled</code> runs exactly when both GPS and network providers are disabled. The compatibility APK reproduced this log twice on the Pixel_5 emulator after location services were disabled.</li>
+        <li><strong>ID 129, null event list — <code>DayBuilder.kt:59</code>.</strong> <code>event list is null, aborting</code> is followed immediately by <code>return</code>. Reaching <code>build()</code> with <code>eventList == null</code> recreates the logged state.</li>
+        <li><strong>ID 136, PDF retry — <code>PdfDownloader.kt:92</code>.</strong> <code>Retrying download for...</code> is entered when the cached PDF cannot be used and <code>retryDownload()</code> starts. Removing or corrupting the cache is a plausible reproduction setup.</li>
+        <li><strong>ID 149, unexpected crop result — <code>DialogAddBoard.java:129</code>.</strong> <code>CROP_IMAGE_ERROR</code> is the final branch after success and user cancellation have been ruled out. An invalid or failed crop result can recreate this unexpected-result state.</li>
+      </ol>
+
+      <h2>Less useful logs and wrappers</h2>
+      <p>Several active calls are mainly instrumentation. ID 118 uses a generic <code>AppLog</code> helper and is enabled by debug/emulator conditions. ID 125 is a <code>BuildConfig.LOGGER_VISIABLE</code> wrapper, so build configuration controls whether it emits. ID 139 bridges a state-machine logger, and ID 141 logs coroutine thread execution. IDs 142 and 146 are largely advertisement callback traces. ID 103 records a normal fuzz-creator list insertion, and ID 124 records a grade value while populating a dialog.</p>
+
+      <h2>Main finding</h2>
+      <div class="callout"><p>The useful information is not simply the text of a Logcat message. Its value comes from the program state and control-flow path associated with the statement. Logs tied to specific conditions can expose states that may be recreated during bug reproduction, while generic status or wrapper logs give much less direct reproduction information.</p></div>
+
+      <h2>Limitations</h2>
+      <div class="note"><p>This is static source analysis, not a complete runtime log study. It does not establish that a path is reachable under every build, that an external service will produce a particular response, or that a logged state caused a real reported bug. The analysis also does not cover other logging APIs. Some projects contain library/sample modules and conditional source sets; they are included when they are production-looking Java/Kotlin source under the repository, but the source snapshot may not reflect the current upstream project.</p></div>
+    </main>
+    <footer class="wrap footer">Lintao (Andy) Zhang · AndroT 101-150 · Direct Log.d static analysis</footer>
+  </body>
+</html>

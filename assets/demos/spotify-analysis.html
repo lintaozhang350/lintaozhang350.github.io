@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Spotify Music Popularity Analysis by Lintao Zhang." />
+    <title>Spotify Music Popularity Analysis | Lintao Zhang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root { --canvas: #f7f6f2; --paper: #fffefa; --ink: #172a3c; --muted: #73808b; --line: #dfe2df; --accent: #c86c4d; --accent-light: #f1ddd3; --display: "Manrope", Arial, sans-serif; --body: "DM Sans", Arial, sans-serif; --mono: "DM Mono", monospace; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--canvas); color: var(--ink); font-family: var(--body); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .wrap { width: min(1040px, calc(100% - 42px)); margin: 0 auto; }
+      .topbar { display: flex; justify-content: space-between; align-items: center; min-height: 74px; border-bottom: 1px solid var(--line); font-size: 13px; }
+      .back { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
+      .back span { color: var(--accent); font-size: 18px; }
+      .code-link { color: var(--accent); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+      .hero { padding: 85px 0 66px; }
+      .kicker { margin: 0 0 18px; color: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+      h1 { max-width: 760px; margin: 0 0 18px; font-family: var(--display); font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -.07em; line-height: .98; }
+      h1 em { color: var(--accent); font-style: normal; }
+      .intro { max-width: 620px; margin: 0; color: #314458; font-size: 17px; line-height: 1.7; }
+      .method { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+      .method span { padding: 7px 11px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); color: #314458; font-family: var(--mono); font-size: 10px; }
+      .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding-bottom: 95px; }
+      figure { margin: 0; padding: 17px; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); box-shadow: 0 14px 40px rgba(28, 48, 64, .06); }
+      figure:first-child { grid-column: 1 / -1; }
+      figure img { display: block; width: 100%; height: auto; border-radius: 9px; }
+      figcaption { padding: 16px 3px 2px; color: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: .03em; text-transform: uppercase; }
+      .footer { padding: 24px 0 50px; border-top: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 10px; }
+      @media (max-width: 650px) { .wrap { width: min(100% - 34px, 520px); } .topbar { min-height: 66px; } .hero { padding: 62px 0 48px; } .gallery { grid-template-columns: 1fr; padding-bottom: 64px; } figure:first-child { grid-column: auto; } .code-link { font-size: 9px; } }
+    </style>
+  </head>
+  <body>
+    <header class="wrap topbar">
+      <a class="back" href="../../index.html#projects"><span aria-hidden="true">←</span> Back to portfolio</a>
+      <a class="code-link" href="../code/spotify-music-popularity-analysis.txt" target="_blank" rel="noreferrer">View code ↗</a>
+    </header>
+    <main>
+      <section class="wrap hero" aria-labelledby="demo-title">
+        <p class="kicker">Project demo / Data analysis</p>
+        <h1 id="demo-title">Spotify Music<br /><em>Popularity Analysis.</em></h1>
+        <p class="intro">An analysis of Spotify track data covering genre popularity, top tracks, numerical audio features, and a baseline linear regression model for predicting track popularity.</p>
+        <div class="method" aria-label="Analysis workflow">
+          <span>Clean data</span><span>EDA</span><span>Train / test split</span><span>Linear regression</span><span>R² + RMSE</span><span>Coefficient analysis</span>
+        </div>
+      </section>
+      <section class="wrap gallery" aria-label="Analysis visualizations">
+        <figure>
+          <img src="../images/projects/spotify/top-genres.png" alt="Bar chart showing the top ten most popular music genres by average popularity" />
+          <figcaption>01 / Top 10 most popular music genres</figcaption>
+        </figure>
+        <figure>
+          <img src="../images/projects/spotify/feature-coefficients.png" alt="Horizontal bar chart showing the top ten feature coefficients from the regression model" loading="lazy" />
+          <figcaption>02 / Top 10 feature coefficients</figcaption>
+        </figure>
+        <figure>
+          <img src="../images/projects/spotify/actual-vs-predicted.png" alt="Scatter plot comparing actual and predicted popularity values" loading="lazy" />
+          <figcaption>03 / Actual vs predicted popularity</figcaption>
+        </figure>
+      </section>
+    </main>
+    <footer class="wrap footer">Lintao (Andy) Zhang · Python · pandas · NumPy · scikit-learn · Matplotlib</footer>
+  </body>
+</html>

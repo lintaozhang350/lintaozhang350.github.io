@@ -1,0 +1,170 @@
+---
+title: "HW 1 1st Problem"
+author: "Lintao Zhang"
+date: "2024-09-11"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Working directory set: 
+setwd("D:/3201/Week 2/HW 1")
+
+
+# read in data from file (do not forget to set working directory)
+
+newspaper.df = read.csv(file="pulitzer-circulation-data.csv",
+header=T, stringsAsFactor=F)
+
+```
+## DATA
+
+```{r}
+head(newspaper.df) ##input all the datasets
+```
+
+
+## Change the data here to be numbers by removing any commas and converting columns 
+```{r}
+newspaper.df$Daily.Circulation..2004 <- as.numeric(gsub(',', '', newspaper.df$Daily.Circulation..2004))
+newspaper.df$Daily.Circulation..2013 <- as.numeric(gsub(',', '', newspaper.df$Daily.Circulation..2013))
+newspaper.df$Change.in.Daily.Circulation..2004.2013 <- as.numeric(gsub("%", "", newspaper.df$Change.in.Daily.Circulation..2004.2013))
+
+```
+
+
+
+## Part A
+
+## The summary statistics for daily circulation in 2004 AND 2013 of the newspapers
+```{r}
+
+#Printing results for 2004
+#Using the "cat" here("concatenate and print")to make the output looks more good and concise!:)
+
+#to print summary statistics for given years and datas
+
+print_summary = function(year, data) { 
+  # Print header
+
+  cat(" \n")
+  cat("----------------------------------------\n")
+
+  cat("Summary Statistics for", year, "Daily Circulation\n")
+  
+  cat("---------------------------------------\n")
+  
+  #print key
+  cat("2 measures of center:" , "\n")
+  cat(" \n")
+  cat("Mean:", mean(data, na.rm = TRUE), "\n")
+  cat("Median:", median(data, na.rm = TRUE), "\n")
+  cat(" \n")
+  cat("---------------------\n")
+  ##the at 2 measures of center
+  
+  cat(" \n")
+  cat("3 measure of dipersion: " , "\n")
+  cat(" \n")
+  cat("Standard Deviation:", sd(data, na.rm = TRUE), "\n")
+  cat("IQR:", IQR(data, na.rm = TRUE), "\n")
+  cat("Range:", range(data, na.rm = TRUE), "\n")
+  ##the at 3 measures of dispersion
+  
+  cat("----------------------------------------\n")
+  cat(" \n")
+  cat(" \n")
+
+}
+
+#print summary statistics for 2004 and 2013 here
+print_summary(2004, newspaper.df$Daily.Circulation..2004)
+
+print_summary(2013, newspaper.df$Daily.Circulation..2013)
+```
+## Based on the result here, I see that there in 2013, the daily circulation of newspaper has decrease since its mean and median both decreased compared to 2004. But I see the standard deviation increased from 2004 to 2013, meaning that there is more variability in newspaper circulation in 2013. I think this may indicate that while some newspapers have declines, others remained more stable or even increased. AND the range widened dramatically from 215,735 to 2,192,098 in 2004 to 0 to 2,378,827 in 2013. I guess the lower bound being 0 in 2013  means that some newspapers might already shut down during it time range.
+
+
+
+
+
+
+
+## Part B
+
+## Fractions of the newspaper had more than 3Pulitzer Prize finalists and winners( 1990-2003, 2004-2014.)
+```{r}
+#subset for 1990-2003
+subset_1990_2003 = newspaper.df[newspaper.df$Pulitzer.Prize.Winners.and.Finalists..1990.2003 > 3, ]
+
+#subset for 2004-2014
+subset_2004_2014 = newspaper.df[newspaper.df$Pulitzer.Prize.Winners.and.Finalists..2004.2014 > 3, ]
+
+
+#fraction for 1990-2003
+fraction_1990_2003 = nrow(subset_1990_2003) / nrow(newspaper.df)
+
+
+#fraction for 2004-2014
+fraction_2004_2014 = nrow(subset_2004_2014) / nrow(newspaper.df)
+
+#results
+cat("Fraction for 1990-2003 is:", fraction_1990_2003, "\n")
+cat("Fraction for 2004-2014 is:", fraction_2004_2014, "\n")
+```
+
+
+
+
+## Part C
+## Creat histograms for two groups
+```{r}
+## Base R
+
+
+## Group 1: All Newspapers
+hist(newspaper.df$Change.in.Daily.Circulation..2004.2013, 
+     main = "Group 1: All Newspapers",  
+     xlab = "Change in Daily Circulation", 
+     col = "red", breaks = 30)
+
+## Group 2: Newspapers with More Than 3 Pulitzer Finalists or Winners (2004-2014)
+hist(newspaper.df$Change.in.Daily.Circulation..2004.2013
+     [newspaper.df$Pulitzer.Prize.Winners.and.Finalists..2004.2014 > 3], 
+     main = "Group 2: Newspapers with > 3 Pulitzer Prizes", #5
+     xlab = "Change in Daily Circulation", 
+     col = "purple", breaks = 30)
+
+##newspaper.df ## datasets
+```
+
+
+## Part D
+## Creat the plot
+```{r}
+
+##make some plot of Pulitzer Finalists/Winners vs. Change in Circulation (2004-2014)
+
+plot(newspaper.df$Pulitzer.Prize.Winners.and.Finalists..2004.2014, newspaper.df$Change.in.Daily.Circulation..2004.2013, 
+     main = "Finalists/Winners vs. Change in Circulation (2004-2014)", 
+     xlab = "Number of Pulitzer Finalists/Winners (2004-2014)", ylab = "Change in Circulation 2004-2014", 
+     col = "blue", 
+     pch = 21 ) ##blue circle with empty middle
+
+
+##fit a simple linear model here
+model = lm(Change.in.Daily.Circulation..2004.2013 ~ Pulitzer.Prize.Winners.and.Finalists..2004.2014, 
+            data = newspaper.df) ##data
+
+#line
+abline(model, col = "red")
+
+
+
+```
+
+## The scatterplot shows a weak positive correlation between the number of Pulitzer finalists/winners and changes in circulation from 2004 to 2014, with a slight upward trend in circulation for newspapers with more Pulitzer recognition. 

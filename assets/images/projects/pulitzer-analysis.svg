@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <rect width="800" height="520" fill="#e5e8e4"/>
+  <rect x="86" y="84" width="628" height="348" rx="17" fill="#fffefa"/>
+  <path d="M140 368V190h42v178h-42Zm74 0V145h42v223h-42Zm74 0V231h42v137h-42Zm74 0V173h42v195h-42Zm74 0V119h42v249h-42Zm74 0V216h42v152h-42Z" fill="#172a3c"/>
+  <path d="M141 290c64-39 90-2 137-44 51-45 81 11 121-26 48-44 82-1 145-62 35-34 74-27 117-52" fill="none" stroke="#c86c4d" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="660" cy="104" r="34" fill="#c86c4d"/>
+  <path d="M645 104h30M660 89v30" stroke="#fffefa" stroke-width="6" stroke-linecap="round"/>
+  <text x="140" y="119" fill="#c86c4d" font-family="monospace" font-size="13" letter-spacing="3">EDA / NEWSPAPERS</text>
+</svg>

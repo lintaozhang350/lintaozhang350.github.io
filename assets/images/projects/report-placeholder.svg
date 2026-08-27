@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <rect width="800" height="520" fill="#172a3c"/>
+  <rect x="84" y="75" width="632" height="370" rx="18" fill="#fffefa"/>
+  <rect x="123" y="117" width="190" height="16" rx="8" fill="#c86c4d"/>
+  <rect x="123" y="151" width="330" height="12" rx="6" fill="#dfe2df"/>
+  <rect x="123" y="211" width="242" height="151" rx="12" fill="#dce7de"/>
+  <path d="m147 326 45-50 34 27 40-58 32 34 43-47" fill="none" stroke="#c86c4d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="397" y="211" width="281" height="23" rx="11" fill="#dfe2df"/>
+  <rect x="397" y="253" width="214" height="15" rx="7" fill="#dfe2df"/>
+  <rect x="397" y="286" width="247" height="15" rx="7" fill="#dfe2df"/>
+  <rect x="397" y="319" width="186" height="15" rx="7" fill="#c86c4d" opacity=".7"/>
+  <text x="123" y="405" fill="#172a3c" font-family="monospace" font-size="12" letter-spacing="3">PLACEHOLDER / REPORT LIBRARY</text>
+</svg>
