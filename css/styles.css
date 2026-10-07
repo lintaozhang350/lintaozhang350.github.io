@@ -176,8 +176,6 @@ h1 span:first-child { color: var(--ink-soft); }
 
 .social-link:hover, .social-link:focus-visible { border-color: var(--ink); background: var(--ink); color: var(--paper); transform: translateY(-3px); }
 .social-link svg { width: 16px; height: 16px; fill: currentColor; }
-.social-link.resume-link { width: auto; padding: 0 15px; border-radius: 22px; gap: 8px; font-size: 11px; font-weight: 600; }
-.resume-link svg { width: 14px; height: 14px; }
 
 .hero-rule { width: 100%; max-width: 510px; height: 1px; margin: 35px 0 27px; background: var(--line-strong); }
 .hero-intro { max-width: 610px; margin-bottom: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.78; }

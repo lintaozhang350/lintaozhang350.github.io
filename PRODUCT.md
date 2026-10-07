@@ -16,15 +16,15 @@ Primary audience is inferred from the portfolio context: recruiters, hiring mana
 
 ## Product Purpose
 
-Present Lintao's software, data, AI, research, IT, and operations experience in a concise portfolio that helps a visitor understand his strengths, inspect real projects, open the live AI Customer Support demo, view source code, download the resume, and make contact.
+Present Lintao's software, data, AI, research, IT, and operations experience in a concise portfolio that helps a visitor understand his strengths, inspect real projects, open the live AI Customer Support demo, view source code, and make contact.
 
 ## Positioning
 
-The portfolio connects software and data work with practical business and operations experience, rather than presenting isolated technologies without context.
+The portfolio connects software, data, and AI with business analytics and operations. Emphasize the existing Business minor, logistics planning, KPI and forecast analysis, HR reporting, and customer service experience through factual copy.
 
 ## Operating Context
 
-Visitors may scan the page quickly on desktop or mobile, then follow project links, inspect the AI Customer Support live demo, open GitHub repositories, or download the resume. The site should remain fast, readable, keyboard-accessible, and understandable without requiring a long interaction.
+Visitors may scan the page quickly on desktop or mobile, then follow project links, inspect the AI Customer Support live demo, or open GitHub repositories. The site should remain fast, readable, keyboard-accessible, and understandable without requiring a long interaction.
 
 ## Capabilities and Constraints
 
@@ -39,13 +39,12 @@ Visitors may scan the page quickly on desktop or mobile, then follow project lin
 
 - Name: Lintao (Andy) Zhang.
 - Academic identity: Computer and Information Science student at The Ohio State University with a Business minor.
-- Existing photo, resume, project assets, GitHub, LinkedIn, email, and live AI Customer Support demo are approved portfolio materials.
+- Existing photo, project assets, GitHub, LinkedIn, email, and live AI Customer Support demo are approved portfolio materials.
 - The visual result should feel authored and specific to Andy's work, not like an unmodified template or generic AI-generated landing page.
 
 ## Evidence on Hand
 
 - Real profile photo at `assets/images/profile/andy-zhang.png`.
-- Resume PDF at `assets/resume/Lintao_Zhang_Resume.pdf`.
 - AI Customer Support screenshots at `assets/images/projects/ai-customer-support-dashboard.png` and `assets/images/projects/ai-customer-support-chat.png`.
 - AI Customer Support live demo: `https://lintao-ai-customer-support-demo.onrender.com`.
 - AI Customer Support repository: `https://github.com/lintaozhang350/ai-customer-support-agent`.

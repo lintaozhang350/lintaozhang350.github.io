@@ -6,8 +6,7 @@
     email: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.25h17A1.75 1.75 0 0 1 22.25 7v10a1.75 1.75 0 0 1-1.75 1.75h-17A1.75 1.75 0 0 1 1.75 17V7A1.75 1.75 0 0 1 3.5 5.25Zm0 1.75a.25.25 0 0 0-.15.05L12 13.5l8.65-6.45a.25.25 0 0 0-.15-.05h-17ZM20.5 17V8.3l-8 5.96a.83.83 0 0 1-1 0l-8-5.96V17c0 .14.11.25.25.25h16.5c.14 0 .25-.11.25-.25Z"/></svg>',
     github: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .75a11.26 11.26 0 0 0-3.56 21.94c.56.1.77-.24.77-.54v-2.1c-3.14.69-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.16-3.04-.12-.29-.5-1.44.11-3 0 0 .95-.3 3.11 1.16A10.82 10.82 0 0 1 12 6.16c.96 0 1.93.13 2.83.38 2.16-1.46 3.11-1.16 3.11-1.16.61 1.56.23 2.71.11 3 .72.79 1.16 1.8 1.16 3.04 0 4.35-2.65 5.3-5.17 5.58.41.36.77 1.07.77 2.16v3.2c0 .3.2.65.78.54A11.26 11.26 0 0 0 12 .75Z"/></svg>',
     linkedin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.15 3.4a2.16 2.16 0 1 1 0 4.32 2.16 2.16 0 0 1 0-4.32ZM3.3 9.2h3.7V21H3.3V9.2Zm5.98 0h3.55v1.61h.05c.49-.93 1.7-1.91 3.5-1.91 3.75 0 4.44 2.47 4.44 5.68V21h-3.7v-5.69c0-1.36-.03-3.1-1.89-3.1-1.9 0-2.19 1.48-2.19 3v5.8H9.28V9.2Z"/></svg>',
-    arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18.2 16.2 7H9V5h10v10h-2V8.4L6.4 19.6 5 18.2Z"/></svg>',
-    document: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2.75h7.6L19 7.15V21H7a2 2 0 0 1-2-2V4.75a2 2 0 0 1 2-2Zm.25 1.5a.75.75 0 0 0-.75.75V19c0 .28.22.5.5.5h10.5V8.25h-4.5v-4H7.25Zm7.25.31v2.19h2.2l-2.2-2.19ZM8.5 12h7v1.5h-7V12Zm0 3.25h7v1.5h-7v-1.5Z"/></svg>'
+    arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18.2 16.2 7H9V5h10v10h-2V8.4L6.4 19.6 5 18.2Z"/></svg>'
   };
 
   const $ = (selector, scope = document) => scope.querySelector(selector);
@@ -35,7 +34,6 @@
       <a class="social-link" href="${emailComposeUrl}" target="_blank" rel="noreferrer" aria-label="Email Andy">${icon.email}</a>
       <a class="social-link" href="${data.personal.linkedin}" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">${icon.linkedin}</a>
       <a class="social-link" href="${data.personal.github}" target="_blank" rel="noreferrer" aria-label="GitHub profile">${icon.github}</a>
-      <a class="social-link resume-link" href="${data.personal.resume}" target="_blank" rel="noreferrer" aria-label="Open resume">${icon.document}<span>Resume</span></a>
     `;
   }
 
